@@ -1,0 +1,681 @@
+Zad. 1. showargs
+Napisz skrypt showargs-1.sh, który wypisuje w pierwszym wierszu liczbę argumentów, a w kolejnych osobnych wierszach kolejne argumenty. 
+Jeśli pierwszym argumentem jest -r, to argumenty są wypisywane w odwrotnej kolejności (pierwszy argument, czyli w tym przypadku opcję należy pominąć). 
+W celu wypisania argumentów w odwrotnym porządku zapisz je najpierw do tablicy.
+
+Przykłady użycia skryptu:
+
+./showargs-1.sh a b c d
+4
+a
+b
+c
+d
+
+
+./showargs-1.sh -r 1 2 3
+3
+3
+2
+1
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 2. showargs-2
+Napisz skrypt showargs-2.sh, który działa tak samo jak skrypt showargs-1.sh, ale jego poprawne działanie nie wymaga użycia tablicy do odwrócenia kolejności argumentów. 
+Spróbuj to zrobić przy pomocy komendy tac. Jak można rozwiązać problem bez użycia tej komendy?
+
+Komendy systemowe: tac
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+Zad. 3. ht-1
+Napisz skrypt ht-1.sh, który pobiera poprzez argumenty nazwy plików tekstowych, a następnie wypisuje pierwszych 10 wierszy każdego z nich.
+
+Komendy systemowe: head
+
+Przykładowy wynik działania skryptu:
+
+$ ./ht-1.sh /etc/hosts /etc/services
+
+plik /etc/hosts
+--------------------------------
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost6 localhost6.localdomain6
+158.75.1.113    hpc-admin
+158.75.5.2      scobie.fizyka.umk.pl  scobie
+192.168.254.1   dummy0 dummy0.localdomain
+158.75.4.237    host-4-237.fizyka.umk.pl host-4-237     s237
+158.75.5.43     ameryk.fizyka.umk.pl    ameryk  am
+158.75.5.47     uran.fizyka.umk.pl      uran    u
+158.75.5.51     tal.fizyka.umk.pl       tal tl
+158.75.5.52     host5-52.fizyka.umk.pl  ig
+
+plik /etc/services
+--------------------------------
+# /etc/services:
+# $Id: services,v 1.55 2013/04/14 ovasik Exp $
+#
+# Network services, Internet style
+# IANA services version: last updated 2013-04-10
+#
+# Note that it is presently the policy of IANA to assign a single well-known
+# port number for both TCP and UDP; hence, most entries here have two entries
+# even if the protocol doesn't support UDP operations.
+# Updated from RFC 1700, ``Assigned Numbers'' (October 1994).  Not all ports
+
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+Zad. 4. ht-2
+Napisz skrypt ht-2.sh, który pobiera poprzez argumenty nazwy plików tekstowych, a następnie wypisuje pierwszych i ostatnich 10 wierszy każdego z nich. 
+Jeśli plik nie jest typu ‘text’, to wyprowadzany jest stosowny komunikat.
+
+Komendy systemowe: grep file head tail
+
+Przykładowe wyniki działania skryptu:
+
+$ ./ht-2.sh /etc/hosts
+plik /etc/hosts: HEAD
+         --------------------------------
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost6 localhost6.localdomain6
+158.75.1.113    hpc-admin
+158.75.5.2      scobie.fizyka.umk.pl  scobie
+192.168.254.1   dummy0 dummy0.localdomain
+158.75.4.237    host-4-237.fizyka.umk.pl host-4-237     s237
+158.75.5.43     ameryk.fizyka.umk.pl    ameryk  am
+158.75.5.47     uran.fizyka.umk.pl      uran    u
+158.75.5.51     tal.fizyka.umk.pl       tal tl
+158.75.5.52     host5-52.fizyka.umk.pl  ig
+
+plik /etc/hosts: TAIL
+--------------------------------
+#
+fe80::215:c5ff:feb1:9a8a scobie6ll
+fe80::214:22ff:fec8:e892 scobie6610ll
+
+2002:9e4b:5fe:0:215:c5ff:feb1:9a8a scobie6
+2002:9e4b:5fe:0:214:22ff:fec8:e892 scobie6610
+#
+81.190.16.5 shelly michal
+
+10.0.0.1  folavirt.lan folavirt
+=======================================================================
+$ ./ht-2.sh  /bin/ls
+/bin/ls is not a text file ... skipping ...
+=======================================================================
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+Zad. 5. ht-3
+Napisz skrypt ht-3.sh, który jest rozszerzeniem skryptu ht-2.sh o możliwość określania liczby wypisywanych wierszy. 
+Opcje -t <liczba> i -b <liczba> określają odpowiednio liczbę pierwszych i ostatnich wierszy, które będą wyprowadzane na standardowe wyjście.
+
+Komendy systemowe: grep head tail
+
+Przykładowy wynik działania skryptu:
+
+$ ./ht-3.sh -t1 -b1 /etc/hosts /etc/services
+plik /etc/hosts: HEAD
+--------------------------------
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+
+plik /etc/hosts: TAIL
+--------------------------------
+10.0.0.1  folavirt.lan folavirt
+=======================================================================
+
+plik /etc/services: HEAD
+--------------------------------
+# /etc/services:
+
+plik /etc/services: TAIL
+--------------------------------
+matahari        49000/tcp               # Matahari Broker
+=======================================================================
+
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 6. selfpres-1
+Napisz skrypt selfpres-1.sh, który w kolejnych wierszach wypisuje: swoją nazwę, liczbę argumentów, wszystkie argumenty (parametry pozycyjne).
+
+Jeśli skrypt jest wywołany bez podania co najmniej 3 argumentów, to pojawia się komunikat: This script needs at least 3 command-line arguments! (wartość 3 jest określona przez odpowiednią zmienną) i skrypt kończy działanie.
+
+Wypisz wartości argumentów stosując instrukcje iteracyjne while, until, for.
+
+Komendy systemowe: basename
+
+Komendy basha: echo, for, if, set, shift, until, while
+
+Przykładowe wyniki działania skryptu:
+
+selfpres-1
+3
+Arguments may be printed using iterative instruction
+for ...
+x
+y
+z
+while [[ $# -gt 0 ]] ...
+x
+y
+z
+while (( $# > 0 )) ...
+x
+y
+z
+until ...
+x
+y
+z
+$./selfpres-1.sh x y
+selfpres-1
+2
+This  script needs at least 3 command-line arguments!
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+Zad. 7. selfpres-2
+Napisz skrypt selfpres-2.sh, który przyjmuje dokładnie 3 argumenty. 
+Jeśli skrypt jest uruchamiany bez żadnego argumentu, z jednym lub dwoma argumentami, to kończy się wypisując odpowiedni komunikat 
+i zwracając odpowiednio status powrotu (kod błędu) 3, 2 lub 1.
+
+Komendy systemowe: basename
+
+Komendy basha: echo, if
+
+Przykładowe wyniki działania skryptu:
+
+$./selfpres-2.sh x y z
+All three positional parameters given: x y z. Exiting with error code 0.
+$./selfpres-2.sh x y
+Missing $3. Exiting with error code 1.
+$./selfpres-2.sh x
+Missing $2 and $3. Exiting with error code 2.
+$./selfpres-2.sh
+Missing $1, $2 and $3. Exiting with error code 3.
+
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 8. selfpres-3
+Napisz skrypt selfpres-3.sh, który do poprawnego działania potrzebuje trzech argumentów. Jeśli któregoś z argumentów brakuje, to nadawane im są domyślne wartości p1, p2 oraz p3. Domyślne działanie skryptu jest takie, że podanie jako argumentu ‘’ (pustego znaku) powoduje nadanie argumentowi domyślnej wartości (pierwszemu p1, itd). Opcja -b powoduje, że argumentowi drugiemu lub trzeciemu można nadać wartość ‘’.
+
+Patrz http://devmanual.gentoo.org/tools-reference/bash/index.html.
+
+Przykładowe wyniki działania skryptu:
+
+$./selfpres-3.sh
+==p1==
+==p2==
+==p3==
+$./selfpres-3.sh x
+==x==
+==p2==
+==p3==
+$./selfpres-3.sh x ''
+==x==
+==p2==
+==p3==
+$./selfpres-3.sh -b x ''
+==x==
+====
+==p3==
+$./selfpres-3.sh -b x '' ''
+==x==
+====
+====
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 9 - showline-1
+Napisz skrypt showline.sh-1, który wypisuje z danego pliku tekstowego (pierwszy argument) wiersz (lub wiersze), którego numer jest określony przez drugi argument (lub kolejne argumenty). Jeśli zostanie użyta opcja -r, to skrypt wyświetla podany wiersz, ale jego numer jest liczony od końca pliku.
+
+Komendy systemowe: head tail
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 10 - showline-2
+Napisz skrypt showline.sh-2, który wypisuje z danego pliku tekstowego (pierwszy argument) wiersz (lub wiersze), którego numer jest określony przez drugi argument (lub kolejne argumenty). Zadbaj, żeby zawartość pliku była czytana tylko jeden raz. Czy można zauważyć różnicę w szybkości działania skryptów showline-1.sh i showline-2.sh?
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 11 - showfield-1
+Napisz skrypt showfield-1.sh, który wypisuje w kolejnych wierszach podane pole wskazanego pliku. Załóż, że domyślnie pola rozdzielone są spacją/tabulatorem. Nazwę pliku należy podać jako pierwszy argument wywołania skryptu, a numer pola – jako drugi. Opcja -d <separator> powoduje użycie jako separatora pól podanego znaku (znaków) zamiast spacji/tabulatora.
+
+Komenda systemowa: gawk (cut?)
+
+Przykładowe użycie i wynik działania skryptu:
+
+$./showfields-1.sh  fstab 1
+ LABEL=slash
+ /dev/system/swap
+ LABEL=home
+ /dev/sda2
+ tmpfs
+ devpts
+ sysfs
+ proc
+ /dev/sdb1
+ ...
+$ ./showfield-1.sh -d: /etc/group 1
+root
+bin
+daemon
+...
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 12 - showfield-2
+Napisz skrypt showfield-2.sh, który wypisuje w kolejnych wierszach podane pole lub pola wskazanego pliku. Załóż, że domyślnie pola rozdzielone są spacją/tabulatorem. Nazwę pliku należy podać jako pierwszy argument wywołania skryptu, a numer pola – jako drugi lub ew. kolejne argumenty. Opcja -d <separator> powoduje użycie jako separatora pól podanego znaku (lub znaków) zamiast spacji/tabulatora.
+
+Komenda systemowa: gawk (cut?)
+
+Przykładowe użycie i wynik działania skryptu:
+
+./showfield-2.sh  -d: /etc/passwd 1 3 5
+torrent : 100 : BitTorrent Seed/Tracker
+postgrey : 101 :
+ntop : 102 : ntop user
+...
+./showfield-2.sh -d: /etc/group 1 2
+root : x
+bin : x
+daemon : x
+sys : x
+...
+./showfield-2.sh -d:: /etc/hosts 2
+1         localhost6 localhost6.localdomain6
+215:c5ff:feb1:9a8a scobie6ll
+214:22ff:fec8:e892 scobie6610ll
+...
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 13 - popts
+Napisz skrypt popts.sh, którego działanie jest sterowane opcjami a, b, c oraz X, Y, Z, zakładając, że opcje X, Y i Z przyjmują pewne wartości. Skrypt w oddzielnych wierszach wypisuje kolejno opcje (w kolejności alfabetycznej) wraz z ew. ich wartościami (wg podanej kolejności), wszystkie argumenty (wg kolejności występowania), których liczba nie jest z góry określona, liczbę opcji każdego rodzaju oraz liczbę argumentów.
+
+Przyładowe wyniki działania skryptu:
+
+$ ./popts.sh -ab -Y 123 -Z 345  1 2 3
+opcja a
+opcja b
+opcja Y=123
+opcja Z=345
+argumenty         = 1 2 3
+liczba opcji      =  2 2
+liczba argumentow =  3
+$ ./popts.sh -x 1 2 3
+opcja nieprawidlowa: -x
+$ ./popts.sh -X
+opcja -X wymaga argumentu
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 14 - numlines
+Napisz skrypt numlines, który dla podanego pliku tekstowego wypisuje jego zawartość numerując kolejne wiersze. Opcja -n <liczba> pozwala na zmianę numeru pierwszego wiersza z 1 na wskazaną liczbę. Jeśli plik nie istnieje lub nie jest plikiem tekstowym, to wyprowadzany jest stosowny komunikat.
+
+Przyładowe wyniki działania skryptu:
+
+$./numlines.sh -n 10 /etc/fstabb
+plik /etc/fstabb nie istnieje
+$./numlines.sh -n 10 /usr/bin/ls
+plik /usr/bin/ls nie jest plikiem tekstowym
+$ ./numlines.sh /etc/fstab
+1 :
+2 : #
+3 : # /etc/fstab
+4 : # Created by anaconda on Wed Feb 19 19:35:31 2014
+5 : #
+6 : # Accessible filesystems, by reference, are maintained under '/dev/disk'
+7 : # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+8 : #
+$ ./numlines.sh -n 10 /etc/fstab
+10 :
+11 : #
+12 : # /etc/fstab
+13 : # Created by anaconda on Wed Feb 19 19:35:31 2014
+14 : #
+15 : # Accessible filesystems, by reference, are maintained under '/dev/disk'
+16 : # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 15 - ccase
+Napisz skrypt ccase.sh, który pobiera dowolną liczbę argumentów i w każdym zamienia duże litery na małe. Opcja -r powoduje zamianę małych liter na duże.
+
+Komenda systemowa: tr (stosując tę komendę trzeba pamiętać o umieszczaniu jej argumentów w apostrofach)
+
+Przykładowe wyniki działania skryptu:
+
+$./ccase-1.sh  AB CD eF xx YY
+ab cd ef xx yy
+$./ccase-1.sh -r AB CD eF xx YY
+AB CD EF XX YY
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 16 - lsirq
+Napisz skrypt lsirq.sh, który domyślnie analizuje zawartość pliku /proc/interrupts i wypisuje dla poszczególnych urządzeń wygenerowaną przez nie liczbę przerwań wraz z numerem IRQ urządzenia i jego nazwą. 
+Jeśli wystąpi opcja -s, to wyniki są sortowane malejąco wg liczby przerwań. Opcja -f file pozwala wskazać do analizy inny plik. 
+Pisząc skrypt trzeba pamiętać o tym, żeby poprawnie działał niezależnie od liczby procesorów systemu.
+
+Komendy systemowe: gawk wc
+
+Przykładowe wyniki działania skryptu:
+
+$ ./lsirq.sh
+  58       0       timer
+  44473    1       i8042
+  1        8       rtc0
+  6098     9       acpi
+  166713   12      i8042
+  0        18      i801_smbus
+  77       23      ehci_hcd:usb3
+  131713   40      0000:00:1f.2
+  40732    41      xhci_hcd
+  38       42      rtsx_pci
+  16       43      snd_hda_intel
+  25593    44      i915
+  14       45      mei_me
+  174802   46      iwlwifi
+  194      47      snd_hda_intel
+  5976     48      em0
+  4382101 Local timer interrupts
+$ bash  lsirq.sh  -s
+  175071   46      iwlwifi
+  168603   12      i8042
+  132132   40      0000:00:1f.2
+  44935    1       i8042
+  41100    41      xhci_hcd
+  25736    44      i915
+  6144     9       acpi
+  6007     48      em0
+  194      47      snd_hda_intel
+  77       23      ehci_hcd:usb3
+  58       0       timer
+  38       42      rtsx_pci
+  16       43      snd_hda_intel
+  14       45      mei_me
+  1        8       rtc0
+  0        18      i801_smbus
+  4342657 Local timer interrupts
+  
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 17 - split2-1
+Napisz skrypt split2-1.sh, który dzieli podany plik tekstowy na dwie części zawierające po połowie wierszy oryginalnego pliku. 
+Skrypt wyprowadza na standardowe wyjście najpierw pierwszych n/2 wierszy, następnie wiersz pusty, a potem pozostałe wiersze. 
+Jeśli liczba wierszy jest nieparzysta, to druga z części zawiera ich nieparzystą liczbę.
+
+Czy można uprościć działanie skryptu wykorzystując komendę split?
+
+Komendy systemowe: head tail wc
+
+Przykładowy wynik działania skryptu:
+
+$ ./split2.sh dane/passwd-split2-2
+root::x::0::0::System Administrator::/root::
+bin::x::1::1::bin::/bin::
+
+daemon::x::2::2::daemon::/sbin::
+adm::x::3::4::adm::/var/adm::
+rpc:x:32:32:Portmapper RPC user:/:/sbin/nologin
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 18 - split2-2
+Napisz skrypt split2-2.sh, którego działanie jest rozszerzeniem działania skryptu spli2-1.sh. Opcja -h powoduje pustego wiersza i następującego komunikatu:
+
+Uzycie: split2.sh [ -h ] [ -s ] [ -1|2 ] <plik>
+Opcja -s powoduje zapisanie pierwszej połowy pliku do pliku o nazwie <nplik>-split2-1, a drugiej do pliku <nplik>-split2-2, gdzie <nplik> jest nazwą pliku z danymi z pominięciem ew. ścieżki do niego (oznacza to, że pliki muszą być zapisywane w bieżącym katalogu).
+
+Opcja -1 powoduje wypisanie zawartości wcześniej utworzonego pliku <nplik>-split2-1, Analogicznie działa opcja -2. Jeśli pliku nie ma to wyprowadzany jest komunikat:
+
+Plik <nplik>-split2-1 nie istnieje.
+i program kończy działanie.
+
+Jeśli zostaną użyte opcje -1|2 i -s, to tworzone są odpowiednie pliki i wypisywany jest jeden z nich.
+
+Komendy systemowe: basename head tail wc
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 19 - system-1
+Napisz skrypt system-1.sh, który wypisuje kwalifikowaną nazwę hosta, w nawiasie jego adres IP, nazwę dystrybucji i numer wydania, architekturę systemu, rodzaj i wersję używanego systemu operacyjnego.
+
+Przykładowy wynik działania skryptu:
+
+$ ./system-1.sh
+  Host: uran.fizyka.umk.pl (158.75.5.68)
+  Nazwa dystrybucji i numer wydania: CentOS release 5.5 (Final)
+  Architektura systemu: i686
+  Rodzaj i wersja systemu operacyjnego: Linux 2.6.18-prep
+Komendy systemowe: cat, domainname, gawk, grep, head, hostname, uname
+
+Pliki: /etc/issue
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 20 - system-2
+Napisz skrypt system-2.sh, który jest rozszerzeniem skryptu system-1.sh. Oprócz danych o systemie wypisywanych przez skrypt system-1.sh podaje on model procesora, liczbę procesorów, dostępną pamieć RAM oraz pamięć wymiany (w KB oraz GB).
+
+Przykładowy wynik działania skryptu:
+
+$ ./system-2.sh
+  Host: uran.fizyka.umk.pl (158.75.5.68)
+  Nazwa dystrybucji i numer wydania: CentOS release 5.5 (Final)
+  Architektura systemu: i686
+  Rodzaj i wersja systemu operacyjnego: Linux 2.6.18-prep
+  Model procesora: Intel(R) Xeon(TM) CPU 3.06GHz
+  Liczba procesorow: 4
+  Pamiec RAM w KB (GB): 3354268 (3.1988)
+  Pamiec wymiany w KB (GB): 2047996 (1.9531)
+Komendy systemowe: bc, cat, domainname, gawk, free, grep, head, hostname, uname
+
+Pliki: /etc/issue, /proc/cpuinfo, /proc/meminfo
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 21 - system-3
+Napisz skrypt system-3.sh, który jest rozszerzeniem skryptu system-2.sh o opcję -c <plik1> oraz -m <plik2>, gdzie pliki mają formaty, odpowiednio, pliku /proc/cpuinfo oraz /proc/meminfo.
+
+Przykładowy wynik działania skryptu:
+
+$ ./system-3.sh -m /proc/meminfo
+  Host: uran.fizyka.umk.pl (158.75.5.68)
+  Nazwa dystrybucji i numer wydania: CentOS release 5.5 (Final)
+  Architektura systemu: i686
+  Rodzaj i wersja systemu operacyjnego: Linux 2.6.18-prep
+  Model procesora: Intel(R) Xeon(TM) CPU 3.06GHz
+  Liczba procesorow: 4
+  Pamiec RAM w KB (GB): 3354268 (3.1988)
+  Pamiec wymiany w KB (GB): 2047996 (1.9531)
+Komendy systemowe: bc, domainname, gawk, grep, head, hostname, uname
+
+Pliki: /etc/issue, /proc/cpuinfo, /proc/meminfo
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 22 - listgroup-1
+W pliku /etc/passwd 4. pole zawiera numer podstawowej (pierwszej) grupy uniksowej (GID), do której należy dany użytkownik (1. pole). Nazwy grup uniksowych są zdefiniowane w pliku /etc/group. Napisz skrypt listgroup-1.sh, który w osobnych wierszach wypisuje identyfikatory użytkowników, dla których podana – jako pierwszy argument – grupa uniksowa jest podstawową grupą, do której należą. Wyprowadzanych jest nie więcej niż 10 identyfikatorów. Jeśli argument nie jest liczbą lub nie ma żądanej grupy, to wyprowadzane są odpowiednie komunikaty.
+
+Komendy systemowe: cut [e]grep
+
+Przykładowe wyniki działania skryptu:
+
+$ bash  ./listgroup-1.sh 1002
+kamil
+abacz
+abering
+admalias2
+admalias
+admin
+adziel
+agata
+agmar
+akarb
+$ bash  ./listgroup-1.sh 1002a
+usage: ./listgroup-1.sh <gid>
+$ bash  ./listgroup-1.sh 1002222
+./listgroup-1.sh: group 100222 does not exist
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 23 - listgroup-2
+Napisz skrypt listgroup-2.sh, który działa podobnie do skryptu listgroup-1.sh, ale zastosowanie opcji -x pozwala użyć jako argumentu nie numerycznego identyfikatora grupy, ale jej nazwy.
+
+Przykładowe wyniki działania skryptu:
+
+$  ./listgroup-2.sh -x ifiz
+kamil
+abacz
+abering
+admalias2
+admalias
+admin
+adziel
+agata
+agmar
+akarb
+$  ./listgroup-2.sh -x 1004
+./listgroup-2.sh: group 1004 does not exist
+
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 24 - ac-1
+Napisz skrypt ac-1.sh, który wypisuje użytkownika z największym czasem połączenia (logowania) i czas tego połączenia (pomiń użytkownika root). Zastanów się, czy skrypt będzie prawidłowo działał, jeśli wśród użytkowników systemu pojawi się użytkownik ‘total’.
+
+Komendy systemowe: ac, basename, gawk, head, sort, tail
+
+Przykładowy wynik działania skryptu:
+
+$ ./ac-1.sh
+  rjakubowski  3538.23
+  
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 25 - ac-2
+Napisz skrypt ac-2.sh, który wypisuje (domyślnie) 10-u użytkowników o najdłuższym czasie połączenia (z pominięciem użytkownika root). Opcja -n liczba pozwala zmienić liczbę wypisywanych użytkowników. Opcja -l plik pozwala użyć innego pliku wtmp zamiast domyślnego /var/log/wtmp.
+
+Przykładowe wyniki działania skryptu:
+
+$ ./ac-2.sh
+    134968       40.74
+    189087       29.04
+    242415       22.76
+    151937       16.64
+    242423       14.98
+    244961       9.07
+    242883       7.30
+    236413       7.33
+    236106       7.90
+    242416       6.45
+$ ./ac-2.sh -n5 -l wtmp-uran
+    242415       71.09
+    189087       21.71
+    134968       19.64
+    242883       7.30
+	
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 26 - ac-3
+Napisz skrypt skrypt ac-3.sh, który wypisuje (domyślnie) pięciu użytkowników (z pominięciem użytkownika root) z największym czasem logowania (opcja -n pozwala zmienić tę wartość) oraz wyznacza (domyślnie) trzy pełne dni (należy pominąć ‘Today’) , w których całkowity czas połączenia był najdłuższy (opcja -d pozwala zmienić liczbę wyświetlanych dni). Opcja -l plik pozwala użyć innego pliku wtmp zamiast domyślnego /var/log/wtmp.
+
+Komendy systemowe: ac, gawk, sort
+
+Przykładowy wynik działania skryptu:
+
+$ ./ac-3.sh
+          pzuch                              304.89
+          gierczyk                           119.23
+          jka                                 36.65
+          jkob                                 9.52
+          bip                                  8.48
+  Sep 21         49.39
+  Sep 20         46.79
+  Sep 19         44.70
+  
+**********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+Zad. 27 - pstop-1
+Napisz skrypt pstop-1.sh, który wyświetla listę użytkowników posiadających działające w systemie procesy. Dla każdego użytkownika wyświetlane są dodatkowo następujące informacje: liczba procesów tego użytkownika, sumaryczna zajętość procesora w procentach oraz sumaryczna zajętość pamięci w procentach. Wyniki domyślnie sortowane są w kolejności od największej do najmniejszej zajętości procesora.
+
+Przydatne polecenia: ‘ps -eo user,pmem,pcpu,cmd’ sort uniq
+
+Przykłady działania skryptu:
+
+$ ./pstop.sh
+grochu         4   4.60  0.00
+avahi          2   0.90  0.00
+root         156   0.30  0.30
+zabbix         8   0.00  0.00
+wj             2   0.00  0.00
+rpcuser        1   0.00  0.00
+rpc            1   0.00  0.00
+postfix        2   0.00  0.00
+nobody         1   0.00  0.00
+mzielin        5   0.00  0.00
+jkob           2   0.00  0.00
+dbus           1   0.00  0.00
+$ ./pstop.sh pstop.log
+   root        266        6.1       22.7
+   jkob         86        0.9        5.7
+  avahi          2        0.5        0.1
+   sshd          1        0.0        0.1
+  smmsp          1        0.0        0.0
+  rtkit          1        0.0        0.0
+    rpc          1        0.0        0.0
+privoxy          1        0.0        0.0
+polkitd          1        0.0        1.0
+    ntp          1        0.0        0.0
+   dbus          1        0.0        0.1
+   
+ **********************************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************************
+
+
+Zad. 28 - pstop-2
+Napisz skrypt pstop-2.sh, który działa jak skrypt pstop-1.sh, ale wyświetla domyślnie tylko dane dla użytkowników niesystemowych, tj. takich, którzy mają identyfikatory większe lub równe 1000. Podanie opcji -s powoduje wypisanie danych tylko dla użytkowników systemowych.
+
+Przykłady działania skryptu:
+
+$ ./pstop-2.sh -s
+
+    root        137        0.5        6.1
+   avahi          2        0.3        0.0
+ polkitd          1        0.0        0.1
+  colord          1        0.0        0.0
+  chrony          1        0.0        0.0
+   rtkit          1        0.0        0.0
+   named          1        0.0        0.4
+    dbus          1        0.0        0.0
