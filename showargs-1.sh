@@ -19,7 +19,7 @@
 
 #!/bin/bash
 
-let ilosc_arg=$#
+ilosc_arg=$#
 
 if [ "$1" != "-r" ] ;
 then
