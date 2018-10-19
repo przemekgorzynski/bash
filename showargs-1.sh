@@ -29,9 +29,9 @@ then
 	done
 else
 	echo $(($ilosc_arg-1))
-	array=("$@")
-	for i in "${array[@]}"; do
-	echo $i  
-	done | tail -n $(($ilosc_arg-1)) | tac
+		array=("$@")
+		for (( i=$# ; i>=1 ; i-- )); do
+		echo ${array[i]}
+		done
 fi
 
