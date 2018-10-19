@@ -32,6 +32,6 @@ else
 	array=("$@")
 	for i in "${array[@]}"; do
 	echo $i  
-	done | tail -n $(($ilosc_arg-1)) | tac 
+	done | tail -n $(($ilosc_arg-1)) | tac
 fi
 
