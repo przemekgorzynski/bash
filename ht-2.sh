@@ -22,12 +22,18 @@
 
 #!~/bin/bash
 
+
+
 for i in $@; do
-echo "********"
-echo "plik "$i" HEAD"
-head -10 $i
-echo "=============================================="
-echo "plik "$1" TAIL"
-tail -10 $1
+	if [[ `file $i | grep text | wc -l` != '0' ]]; then
+	echo "********"
+	echo "plik "$i" HEAD"
+	head -10 $i
+	echo "=============================================="
+	echo "plik "$1" TAIL"
+	tail -10 $1
+	else
+	echo ""$i"is not a text file ... skipping ..."
+	fi
 done
  
