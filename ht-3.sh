@@ -9,6 +9,7 @@ b=`echo $2 | grep -o [[:digit:]]`
 echo "t="$t" b="$b""
 array=`echo $@ | cut -d" " -f3-$#`
 echo $array
+echo "travis test"
 
 
 for i in $array; do

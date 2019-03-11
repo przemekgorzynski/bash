@@ -30,8 +30,8 @@ for i in $@; do
 	echo "plik "$i" HEAD"
 	head -10 $i
 	echo "=============================================="
-	echo "plik "$1" TAIL"
-	tail -10 $1
+	echo "plik "$i" TAIL"
+	tail -10 $i
 	else
 	echo ""$i"is not a text file ... skipping ..."
 	fi
