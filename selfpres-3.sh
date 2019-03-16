@@ -27,53 +27,78 @@
 #first checks if 1st argument is -b. If tyes then we cut first one (shift)  then checks another arguments.   
 
 clear
-ilosc_arg=$#
-echo $ilosc_arg
 
-set -x
+
 
 if [[ $1 == "-b" ]];  			#fitst argument = -b
 	then 
-	shift            		# removes first arg -b
-	var_b=1;
+	shift 				#removes first arg -b
+	ilosc_arg=$#           		
+	#echo "ilosc arg. po odcieciu -b wynosi $ilosc_arg"
+	var_b=1; 			#sets variable to 1 , means first arg was -b
+else 	var_b=0
+	ilosc_arg=$#
+	#echo "ilosc arg. kiedy nie bylo podane -b wynosi $ilosc_arg"
 fi
 
+#echo "var_b $var_b"
 
-if (( $var_b==1 ));
+if [[ $var_b == 1 ]];
 	then
-		if [ $ilosc_arg = 3 ];
+		if [[ $ilosc_arg = 3 ]];
 		then   
   			p1=$1
-			p3="p3"	
-	 		if [ -z $2 ]; 
-			then p2=""
-			else p2=$p2
-			fi
-		else
+			p2=$2
+			p3=$3	
+		elif [[ $ilosc_arg = 1 ]];
+		then
 			p1=$1
-			if [ -z $2 ]; 
- 42                     then p2=""
- 43                     else p2=$p2
- 44                     fi
+			p2="p2"
+			p3="p3"
+		elif [[ $ilosc_arg = 2 ]];
+		then
+			p1=$1
+			p3="p3"
+			p2=$2
+		fi
 
-			if [ -z $3 ];
-			then p3=""
-			else p3=$3
-			fi 
+
+elif [[ $var_b == 0 ]];
+	then
+		if   [[ $ilosc_arg == 0 ]];
+			then 
+			p1="p1" 
+			p2="p2" 
+			p3="p3"
+		elif [[ $ilosc_arg = 1 ]];
+			then
+			p1=$1 
+			p2="p2" 
+			p3="p3"
+		elif [[ $ilosc_arg = 2 ]];
+			  then
+			  p1=$1
+                          p3="p3"
+                            if [ -z $2 ];
+                            then p2="p2"
+                            else p2=$2
+                            fi
+		elif [[ $ilosc_arg = 3 ]];
+			  then 
+			  p1=$1
+                            if [ -z $2 ];
+                            then p2="p2"
+                            else p2=$2
+                            fi
+			    if [ -z $3 ];
+			    then p3="p3"
+			    else p3=$3
+		            fi
+		else echo "Too many arguments" 
+			exit
 		fi
 fi		
-
-
-set +x
 
 echo "==$p1=="
 echo "==$p2=="
 echo "==$p3=="
-
-#set -x
-#if [ $ilosc_arg == 0 ]; then
-     #for i in 1 2 3; do echo "==$defaultp$i=="; done
- #     for i in 1 2 3; do a="\$defaultp$i" ;echo "to jest A:$a" ; done 
-#fi
-
-#set +x
