@@ -12,7 +12,7 @@ then
 	echo "`cut -d " " -f $2 $1`"
 else 
 	separator1="`echo $1 | grep -o [[:punct:]] | grep -v "-"`"    #resolving separator
-	#echo "separator wynosi $separator1"
+	echo "separator wynosi $separator1"
 	kolumna=$3
-	echo "`awk -F$separator1 '{ print $'$kolumna' }' $2 `" | head -n2  # $'$var'  passing $var value to awk 
+	echo "`awk -F$separator1 '{ print $'$kolumna' }' $2 `"   # $'$var'  passing $var value to awk 
 fi
