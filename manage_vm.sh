@@ -47,10 +47,10 @@ printf " 1) stworz wirtualna maszyne \n 2) wyswietl wirtualne maszyny \n 3) usun
 read choice 
 
 
-if [ $choice == 1 ]; then
+if [ $choice == "1" ]; then
 	cr
-elif [ $choice == 2 ]; then
+elif [ $choice == "2" ]; then
 	chk
-elif [ $choice == 3 ]; then
+elif [ $choice == "3" ]; then
 	del
 fi
