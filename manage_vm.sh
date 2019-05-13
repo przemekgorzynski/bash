@@ -4,8 +4,9 @@
 #memory=512
 #vcpus=1
 #dssize=1
-#cdrom=/home/przemek/Downloads/CentOS-7-x86_64-Minimal-1810.iso
+cdrom=/home/przemek/Downloads/CentOS-7-x86_64-Minimal-1810.iso
 #osvariant=rhel7
+
 
 function cr ()                #creating VM
 {
@@ -13,7 +14,7 @@ read -p '--name ' name
 read -p '--memory ' memory
 read -p '--vcpus ' vcpus
 read -p '--disk size ' dssize
-read -p '--cdrom ' cdrom
+#read -p '--cdrom ' cdrom
 read -p '--os-variant ' osvariant 
 nohup virt-install --name "$name" --memory "$memory" --vcpus "$vcpus" --disk size="$dssize" --cdrom "$cdrom" --os-variant "$osvariant" &
 }
