@@ -1,0 +1,9 @@
+# input to script is CVS file in format "db, bdate". Output file is a resoult
+#set -x
+while IFS=, read db bdate
+do
+	 liczba=`hive -e "use master_ccs ; select count(*) from $db where $bdate" | head -n 1`
+	  echo "$db $bdate $liczba" >> output.txt
+  done < input.csv
+
+#set +x
