@@ -1,0 +1,38 @@
+# when there is a need to run multiple commands from different users ( switching with sudo ).
+# Comands must be passed with <<OEF option. Otherwise after sudo commands connection is automatically closed and other steps are executed
+# as user (which executed script)
+
+# script rerun provided WF and users (can include multiple users and WF)
+# provide file name as argument to script  ./ozzie_rerun_killed_jobs.sh input_file
+# input file should include failed WF name.
+#cat input_file
+#2667202-200126155231063-oozie-oozi-W user1
+#2672045-200126154838019-oozie-oozi-W user2
+#2667114-200126155231063-oozie-oozi-W user3
+#2667113-200126154838019-oozie-oozi-W user4
+
+#set -x
+clear
+
+if [[ -f $1 ]]; then
+
+	input_file=$1
+	unique_users=`cat $input_file | awk '{ print $2 }' | uniq`
+
+	for i in $unique_users
+	do
+		  service_account=$i
+		    jobs=`cat $input_file | grep $i | awk '{ print $1 " "  }'| tr -d '\n'`
+		        for j in $jobs
+				     do
+					          sudo su - $i << EOF                                                 # passing commands to run as another user via sudo su 
+     kinit -kt ~/${service_account}.keytab ${service_account}@DOMAIN
+     echo "running job  $j for user $service_account"
+     oozie job -oozie=http://hostname:port/oozie -rerun $j -D oozie.wf.rerun.failnodes=true
+EOF
+done
+done
+
+else echo -e "Input argument is not a file.\nAs input for script use file including two values, job_id and SVC account with space as delimiter, e.g.:\nWorkflow-ID user\nUsage: ./script_name.sh input_file.csv\n"
+fi
+#set +x
