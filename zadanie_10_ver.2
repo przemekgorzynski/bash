@@ -1,0 +1,38 @@
+# Napisz skrypt, w którym jako parametr przekażesz działanie dodawania lub mnożenia 
+# dwóch liczb naturalnych. np. ./zad9.sh 2+2  lub  ./zad9.sh 2*2 
+# 
+# • sprawdź czy przekazany znak jest dopuszczalny (regex), jeśli nie - zakończ działanie. 
+# • Wypisz jaki znak znajduje się w działaniu 
+# • zagwarantuj, że zostały przekazane dokładnie dwie liczby w parametrze 
+# • wypisz wynik działania 
+
+#!/bin/bash
+
+parameter=$1
+echo "Przekazane działanie to $parameter"
+liczba1=`echo $parameter | awk -F '[+*]' '{print $1}'`
+liczba2=`echo $parameter | awk -F '[+*]' '{print $2}'`
+dzialanie="`echo $parameter | grep -o [[:punct:]]`"          #https://www.regular-expressions.info/posixbrackets.html
+
+#echo $liczba1
+#echo $liczba2
+
+if ! [[ `echo $parameter | grep -E "\+|\*"` ]]                 # Jeżeli parameter jest + lub *   IF warunek = true 
+then
+    echo "Mozliwe jest tylko dodawanie i mnożenie"
+else
+    if [[ `echo $parameter | awk  -F '[+*]' '{print NF}'` = 2 ]]    # Jesli po podzieleniu dostajemy dokładnie 2 wartośći 
+    then
+    echo "Podane dzialanie to: $dzialanie"
+        if [[ "$dzialanie" = "+" ]]
+            then
+            wynik=$[$liczba1+$liczba2]
+            echo "Wynik dodawania to $wynik"
+            else
+            wynik=$[$liczba1*$liczba2]
+            echo "Wynik mnozenia to $wynik"
+        fi
+    else
+    echo "ERROR: Podaj dzialanie na dokładnie dwóch liczbach"
+    fi
+fi
